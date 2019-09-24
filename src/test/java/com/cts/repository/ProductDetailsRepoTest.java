@@ -13,14 +13,14 @@ import org.mockito.Mock;
 
 import com.cts.controller.AbstractTest;
 import com.cts.model.Product;
-import com.cts.repository.impl.ProductDetailssRepo;
+import com.cts.repository.impl.ProductDetailsRepoImpl;
 import com.cts.util.ProductExcelFile;
 import com.cts.util.RWExcelProduct;
 
 public class ProductDetailsRepoTest extends AbstractTest {
 
 	@InjectMocks
-	ProductDetailssRepo productDetailssRepo;
+	ProductDetailsRepoImpl productDetailsRepository;
 
 	@Mock
 	ProductExcelFile productExcelFile;
@@ -41,7 +41,7 @@ public class ProductDetailsRepoTest extends AbstractTest {
 		product.setProdName("nokia");
 		product.setPrice("999");
 		when(productExcelFile.addItemInExcel(fileName, product)).thenReturn("Added");
-		String res = productDetailssRepo.addItem(product);
+		String res = productDetailsRepository.addItem(product);
 		assertEquals(res, "Added");
 	}
 
@@ -53,7 +53,7 @@ public class ProductDetailsRepoTest extends AbstractTest {
 		product.setProdName("nokia");
 		product.setPrice("999");
 		when(productExcelFile.removeItemFromExcel(fileName,product.getProdId() )).thenReturn("Removed");
-		String res = productDetailssRepo.removeItem(product.getProdId());
+		String res = productDetailsRepository.removeItem(product.getProdId());
 		assertEquals(res, "Removed");
 	}
 	
@@ -64,7 +64,7 @@ public class ProductDetailsRepoTest extends AbstractTest {
 		product.setProdName("nokia");
 		product.setPrice("999");
 		when(rwExcelProduct.getProductById(product.getProdId() )).thenReturn(product);
-		Product responseProduct = productDetailssRepo.getProductById(product.getProdId());
+		Product responseProduct = productDetailsRepository.getProductById(product.getProdId());
 		assertEquals(product.getProdId(), responseProduct.getProdId());
 	}
 	
@@ -85,7 +85,7 @@ public class ProductDetailsRepoTest extends AbstractTest {
 		pList.add(product2);
 		
 		when(rwExcelProduct.getAllProducts()).thenReturn(pList);
-		List<Product> responsePlist = productDetailssRepo.getAllProducts();
+		List<Product> responsePlist = productDetailsRepository.getAllProducts();
 		assertEquals(2, responsePlist.size());
 	}
 }

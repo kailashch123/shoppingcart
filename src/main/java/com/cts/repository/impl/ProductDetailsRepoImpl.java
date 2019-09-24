@@ -12,30 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cts.model.Product;
+import com.cts.repository.iface.IProductDetailsRepository;
 import com.cts.util.ProductExcelFile;
 import com.cts.util.RWExcelProduct;
 
-@Repository("productDetailssRepo")
+@Repository("productDetailsRepository")
 
-public class ProductDetailssRepo {
+public class ProductDetailsRepoImpl implements IProductDetailsRepository {
 
 	@Autowired
 	private ProductExcelFile productExcelFile;
 
 	@Autowired
-	private RWExcelProduct rwExcelProduct;
-
-	/**
-	 * Defined constructor
-	 * 
-	 * @param productExcelFile,rwExcelProduct
-	 * 
-	 */
-	public ProductDetailssRepo(ProductExcelFile productExcelFile, RWExcelProduct rwExcelProduct) {
-		super();
-		this.productExcelFile = productExcelFile;
-		this.rwExcelProduct = rwExcelProduct;
-	}
+	private RWExcelProduct rWExcelProduct;
 
 	/**
 	 * It will add a product details
@@ -43,6 +32,7 @@ public class ProductDetailssRepo {
 	 * @param pro
 	 * @return
 	 */
+	@Override
 	public String addItem(final Product pro) {
 		return productExcelFile.addItemInExcel("./src/main/resources/excel/product.xlsx", pro);
 	}
@@ -53,6 +43,7 @@ public class ProductDetailssRepo {
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public String removeItem(final String prodId) {
 		return productExcelFile.removeItemFromExcel("./src/main/resources/excel/product.xlsx", prodId);
 	}
@@ -63,8 +54,9 @@ public class ProductDetailssRepo {
 	 * @param
 	 * @return list of product
 	 */
+	@Override
 	public List<Product> getAllProducts() {
-		return rwExcelProduct.getAllProducts();
+		return rWExcelProduct.getAllProducts();
 	}
 
 	/**
@@ -73,8 +65,9 @@ public class ProductDetailssRepo {
 	 * @param prodId
 	 * @return Product
 	 */
+	@Override
 	public Product getProductById(final String prodId) {
-		return rwExcelProduct.getProductById(prodId);
+		return rWExcelProduct.getProductById(prodId);
 	}
 
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.model.Order;
-import com.cts.service.IOrderService;
+import com.cts.service.iface.IOrderService;
 
 @RestController
 @RequestMapping("/orders")

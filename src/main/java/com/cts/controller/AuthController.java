@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.model.User;
-import com.cts.service.AuthService;
+import com.cts.service.iface.IAuthService;
+import com.cts.service.impl.AuthServiceImpl;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
 	@Autowired
-	private AuthService authService;
+	private IAuthService authService;
 
 	/**
 	 * This constructor is used to initialize the AuthService variable.
 	 * 
 	 * @param authService
 	 */
-	public AuthController(final AuthService authService) {
+	public AuthController(final AuthServiceImpl authService) {
 		super();
 		this.authService = authService;
 	}

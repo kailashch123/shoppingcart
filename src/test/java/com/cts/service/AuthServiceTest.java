@@ -7,20 +7,20 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cts.model.User;
-import com.cts.repository.impl.AuthRepository;
-import com.cts.service.AuthService;
+import com.cts.repository.impl.AuthRepositoryImpl;
+import com.cts.service.impl.AuthServiceImpl;
+
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 public class AuthServiceTest {
 	
-	
 	@Mock
-	AuthRepository authRepository;
+	AuthRepositoryImpl authRepository;
 	
 	@InjectMocks
-	AuthService authService;
+	AuthServiceImpl authService;
 	
 	@Test
 	public void loginTest(){

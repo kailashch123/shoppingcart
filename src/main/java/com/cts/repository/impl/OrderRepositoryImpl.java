@@ -17,7 +17,7 @@ import com.cts.model.Order;
 import com.cts.repository.iface.IOrderRepository;
 import com.cts.util.RWExcelOrder;
 
-@Repository("OrderRepository")
+@Repository("orderRepository")
 public class OrderRepositoryImpl implements IOrderRepository {
 
 	@Autowired

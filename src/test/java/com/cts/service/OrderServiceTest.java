@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.cts.model.Order;
 import com.cts.repository.impl.OrderRepositoryImpl;
+import com.cts.service.impl.OrderServiceImpl;
 
 
 @RunWith(MockitoJUnitRunner.class)

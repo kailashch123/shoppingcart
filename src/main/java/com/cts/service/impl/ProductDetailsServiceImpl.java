@@ -4,7 +4,7 @@
  * @author 764432
  *
  */
-package com.cts.service;
+package com.cts.service.impl;
 
 import java.util.List;
 
@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.model.Product;
-import com.cts.repository.impl.ProductDetailssRepo;
+import com.cts.repository.iface.IProductDetailsRepository;
+import com.cts.service.iface.IProductDetailsService;
 
 @Service("productDetailsService")
-public class ProductDetailsService {
+public class ProductDetailsServiceImpl implements IProductDetailsService {
 
 	@Autowired
-	ProductDetailssRepo repo;
+	IProductDetailsRepository productDetailsRepository;
 
 	/**
 	 * It is used to add a product item into excel.
@@ -26,8 +27,10 @@ public class ProductDetailsService {
 	 * @param pro
 	 * @return
 	 */
+
+	@Override
 	public String addItem(Product pro) {
-		return repo.addItem(pro);
+		return productDetailsRepository.addItem(pro);
 	}
 
 	/**
@@ -36,8 +39,9 @@ public class ProductDetailsService {
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public String removeItem(String id) {
-		return repo.removeItem(id);
+		return productDetailsRepository.removeItem(id);
 	}
 
 	/**
@@ -45,8 +49,9 @@ public class ProductDetailsService {
 	 * 
 	 * @return
 	 */
+	@Override
 	public List<Product> getAllProducts() {
-		return repo.getAllProducts();
+		return productDetailsRepository.getAllProducts();
 	}
 
 	/**
@@ -55,7 +60,8 @@ public class ProductDetailsService {
 	 * @param productId
 	 * @return
 	 */
+	@Override
 	public Product getProductById(String productId) {
-		return repo.getProductById(productId);
+		return productDetailsRepository.getProductById(productId);
 	}
 }

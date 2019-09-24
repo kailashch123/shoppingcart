@@ -1,4 +1,4 @@
-package com.cts.service;
+package com.cts.service.iface;
 
 import java.util.List;
 

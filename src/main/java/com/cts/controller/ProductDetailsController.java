@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.model.Order;
 import com.cts.model.Product;
-import com.cts.service.IOrderService;
-import com.cts.service.ProductDetailsService;
+import com.cts.service.iface.IOrderService;
+import com.cts.service.iface.IProductDetailsService;
 
 @RestController
 @RequestMapping("/products")
@@ -31,7 +31,7 @@ import com.cts.service.ProductDetailsService;
 public class ProductDetailsController {
 
 	@Autowired
-	private ProductDetailsService productDetailsService;
+	private IProductDetailsService productDetailsService;
 
 	@Autowired
 	private IOrderService orderService;

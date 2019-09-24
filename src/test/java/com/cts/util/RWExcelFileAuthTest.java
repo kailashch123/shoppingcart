@@ -12,13 +12,13 @@ import com.cts.model.User;
 @RunWith(SpringRunner.class)
 public class RWExcelFileAuthTest {
 
-	private RWExcelFileAuth rWExcelFileAuth;
+	private RWExcelFileAuth rwExcelFileAuth;
 
 	@Test
 	public void readExcelTest() {
 
-		rWExcelFileAuth = new RWExcelFileAuth();
-		String res = rWExcelFileAuth.readExcel(getUser(), "./src/test/resources/excel/user.xlsx");
+		rwExcelFileAuth = new RWExcelFileAuth();
+		String res = rwExcelFileAuth.readExcel(getUser(), "./src/test/resources/excel/user.xlsx");
 		String expected = "User Looged in sucessfully";
 		assertEquals(expected, res);
 
@@ -27,8 +27,8 @@ public class RWExcelFileAuthTest {
 	@Test
 	public void writeExcel() {
 
-		rWExcelFileAuth = new RWExcelFileAuth();
-		String res = rWExcelFileAuth.writeExcel(getUser(), "./src/test/resources/excel/user.xlsx");
+		rwExcelFileAuth = new RWExcelFileAuth();
+		String res = rwExcelFileAuth.writeExcel(getUser(), "./src/test/resources/excel/user.xlsx");
 		String expected = "User Registered Successfully";
 		assertEquals(expected, res);
 
@@ -36,8 +36,8 @@ public class RWExcelFileAuthTest {
 	@Test
 	public void readExcelTestElse() {
 
-		rWExcelFileAuth = new RWExcelFileAuth();
-		String res = rWExcelFileAuth.readExcel(getUser(), "./src/test/resources/excel/user_test.xlsx");
+		rwExcelFileAuth = new RWExcelFileAuth();
+		String res = rwExcelFileAuth.readExcel(getUser(), "./src/test/resources/excel/user_test.xlsx");
 		String expected = "";
 		assertEquals(expected, res);
 
@@ -46,8 +46,8 @@ public class RWExcelFileAuthTest {
 	@Test ( expected = ComparisonFailure.class)
 	public void readExcelTestException() {
 
-		rWExcelFileAuth = new RWExcelFileAuth();
-		String res = rWExcelFileAuth.readExcel(getUser(), "./src/main/resources/excel/nofile.xlsx");
+		rwExcelFileAuth = new RWExcelFileAuth();
+		String res = rwExcelFileAuth.readExcel(getUser(), "./src/main/resources/excel/nofile.xlsx");
 		String expected = "exception ";
 		assertEquals(expected, res);
 
@@ -55,8 +55,8 @@ public class RWExcelFileAuthTest {
 	@Test ( expected = ComparisonFailure.class)
 	public void writeExcelException() {
 
-		rWExcelFileAuth = new RWExcelFileAuth();
-		String res = rWExcelFileAuth.writeExcel(getUser(), "./src/main/resources/excel/nofile.xlsx");
+		rwExcelFileAuth = new RWExcelFileAuth();
+		String res = rwExcelFileAuth.writeExcel(getUser(), "./src/main/resources/excel/nofile.xlsx");
 		String expected = "User Registered Successfully";
 		assertEquals(expected, res);
 

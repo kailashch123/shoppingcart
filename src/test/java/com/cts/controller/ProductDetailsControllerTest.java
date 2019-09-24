@@ -18,10 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.cts.model.Order;
 import com.cts.model.Product;
-import com.cts.repository.impl.ProductDetailssRepo;
-import com.cts.service.OrderServiceImpl;
-import com.cts.service.ProductDetailsService;
-import com.cts.util.ProductExcelFile;
+import com.cts.service.impl.OrderServiceImpl;
+import com.cts.service.impl.ProductDetailsServiceImpl;
 
 public class ProductDetailsControllerTest extends AbstractTest {
 
@@ -32,14 +30,8 @@ public class ProductDetailsControllerTest extends AbstractTest {
 	OrderController orderController;
 
 	@Mock
-	private ProductDetailsService productDetailsService;
+	private ProductDetailsServiceImpl productDetailsService;
 
-	@Mock
-	private ProductExcelFile productExcelFile;
-
-	@Mock
-	private ProductDetailssRepo productDetailssRepo;
-	
 	@Mock
 	private OrderServiceImpl orderService;
 	

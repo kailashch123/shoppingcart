@@ -4,7 +4,7 @@
  * @author 764432
  *
  */
-package com.cts.service;
+package com.cts.service.impl;
 
 import java.util.List;
 
@@ -12,13 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.model.Order;
+import com.cts.repository.iface.IOrderRepository;
 import com.cts.repository.impl.OrderRepositoryImpl;
+import com.cts.service.iface.IOrderService;
 
 @Service("orderService")
 public class OrderServiceImpl implements IOrderService {
 
 	@Autowired
-	private OrderRepositoryImpl orderRepository;
+	private IOrderRepository orderRepository;
 
 	/**
 	 * It is used to place the order.

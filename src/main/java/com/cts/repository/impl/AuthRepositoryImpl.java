@@ -10,23 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cts.model.User;
+import com.cts.repository.iface.IAuthRepository;
 import com.cts.util.RWExcelFileAuth;
 
-@Repository
-public class AuthRepository {
+@Repository("authRepository")
+public class AuthRepositoryImpl implements IAuthRepository {
 
 	@Autowired
 	private RWExcelFileAuth rWExcelFileAuth;
-
-	/**
-	 * This constructor initialize RWExcelFileAuth variable.
-	 * 
-	 * @param rWExcelFileAuth
-	 */
-	public AuthRepository(RWExcelFileAuth rWExcelFileAuth) {
-		super();
-		this.rWExcelFileAuth = rWExcelFileAuth;
-	}
 
 	/**
 	 * This method is used to validate the user credentials.
@@ -34,6 +25,7 @@ public class AuthRepository {
 	 * @param user
 	 * @return
 	 */
+	@Override
 	public String login(final User user) {
 
 		final String res = rWExcelFileAuth.readExcel(user, "./src/main/resources/excel/user.xlsx");
@@ -49,6 +41,7 @@ public class AuthRepository {
 	 * @param user
 	 * @return
 	 */
+	@Override
 	public String createUser(final User user) {
 
 		return rWExcelFileAuth.writeExcel(user, "./src/main/resources/excel/user.xlsx");

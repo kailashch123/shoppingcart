@@ -4,19 +4,20 @@
  * @author 764432
  *
  */
-package com.cts.service;
+package com.cts.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.model.User;
-import com.cts.repository.impl.AuthRepository;
+import com.cts.repository.iface.IAuthRepository;
+import com.cts.service.iface.IAuthService;
 
-@Service
-public class AuthService {
+@Service("authService")
+public class AuthServiceImpl implements IAuthService {
 
 	@Autowired
-	private AuthRepository authFileRepo;
+	private IAuthRepository authRepository;
 
 	/**
 	 * It is used to allow the user to login.
@@ -24,9 +25,10 @@ public class AuthService {
 	 * @param user
 	 * @return
 	 */
+	@Override
 	public String login(User user) {
 
-		return authFileRepo.login(user);
+		return authRepository.login(user);
 
 	}
 
@@ -36,8 +38,9 @@ public class AuthService {
 	 * @param user
 	 * @return
 	 */
+	@Override
 	public String createUser(User user) {
 
-		return authFileRepo.createUser(user);
+		return authRepository.createUser(user);
 	}
 }

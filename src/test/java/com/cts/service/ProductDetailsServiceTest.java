@@ -1,6 +1,7 @@
 package com.cts.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -11,20 +12,19 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cts.model.Order;
 import com.cts.model.Product;
-import com.cts.repository.impl.ProductDetailssRepo;
+import com.cts.repository.impl.ProductDetailsRepoImpl;
+import com.cts.service.impl.ProductDetailsServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductDetailsServiceTest {
 	
 	@InjectMocks
-	ProductDetailsService productDetailsService;
+	ProductDetailsServiceImpl productDetailsService;
 	
 	@Mock
-	ProductDetailssRepo repo;
+	ProductDetailsRepoImpl productDetailsRepository;
 	
 
 	@Test
@@ -33,13 +33,13 @@ public class ProductDetailsServiceTest {
 		pro.setPrice("234.56");
 		pro.setProdId("B345");
 		pro.setProdName("Bottle");
-		when(repo.addItem(pro)).thenReturn("Item Added Successfully");
+		when(productDetailsRepository.addItem(pro)).thenReturn("Item Added Successfully");
 		assertEquals("Item Added Successfully", productDetailsService.addItem(pro));
 	}
 	
 	@Test
 	public void removeItemTest(){
-		when(repo.removeItem("B345")).thenReturn("Item deleted Successfully");
+		when(productDetailsRepository.removeItem("B345")).thenReturn("Item deleted Successfully");
 		assertEquals("Item deleted Successfully", productDetailsService.removeItem("B345"));
 	}
 	
@@ -52,7 +52,7 @@ public class ProductDetailsServiceTest {
 		p1.setProdId("Y23423");
 		products.add(p1);
 		products.add(p);
-		when(repo.getAllProducts()).thenReturn(products);
+		when(productDetailsRepository.getAllProducts()).thenReturn(products);
 		assertNotNull(productDetailsService.getAllProducts());
 	}
 	
@@ -60,7 +60,7 @@ public class ProductDetailsServiceTest {
 	public void getProductByIdTest(){
 		Product p = new Product();
 		p.setProdId("G23423");
-		when(repo.getProductById("G23423")).thenReturn(p);
+		when(productDetailsRepository.getProductById("G23423")).thenReturn(p);
 		assertEquals(p.getProdId(), productDetailsService.getProductById("G23423").getProdId());
 		assertEquals(p.getPrice() , productDetailsService.getProductById("G23423").getPrice());
 		assertEquals(p.getProdName(), productDetailsService.getProductById("G23423").getProdName());

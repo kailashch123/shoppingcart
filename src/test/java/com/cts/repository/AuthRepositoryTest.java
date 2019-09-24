@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cts.model.User;
-import com.cts.repository.impl.AuthRepository;
+import com.cts.repository.impl.AuthRepositoryImpl;
 import com.cts.util.RWExcelFileAuth;
 
 @RunWith(SpringRunner.class)
@@ -20,7 +20,7 @@ public class AuthRepositoryTest {
 	RWExcelFileAuth rWExcelFileAuth;
 	
 	@InjectMocks
-	AuthRepository authRepository;
+	AuthRepositoryImpl authRepository;
 	
 	@Test
 	public void loginTest(){
