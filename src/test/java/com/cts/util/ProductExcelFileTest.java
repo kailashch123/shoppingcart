@@ -47,9 +47,4 @@ public class ProductExcelFileTest {
 		assertNull(removeItemResponse);
 	}
 
-	/*
-	 * @Test public void removeRowTest(){ Sheet sheet = null; sheet.setro int
-	 * rowIndex = 12; productExcelFile.removeRow(sheet, rowIndex); }
-	 */
-
 }

@@ -31,26 +31,17 @@ import com.cts.model.Order;
 public class RWExcelOrder {
 
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	String filePath = "./src/main/resources/excel/order.xlsx";
 
 	/**
 	 * This method is used for reading the excel value.
 	 * 
-	 * 
 	 * @return
 	 */
-	public List<Order> readExcel() {
-		// FileInputStream fileInputStream = null;
+	public List<Order> readExcel(String inputFilePath) {
 		ArrayList<Order> orderList = null;
 		Workbook workbook = null;
 		try {
-			/*
-			 * fileInputStream = new FileInputStream(new
-			 * File("./src/main/resources/excel/order.xlsx")); File file = new
-			 * File(filePath); XSSFWorkbook workbook = new XSSFWorkbook(file);
-			 * XSSFSheet sheet = workbook.getSheetAt(0);
-			 */
-			workbook = new XSSFWorkbook(Files.newInputStream(Paths.get("./src/main/resources/excel/order.xlsx")));
+			workbook = new XSSFWorkbook(Files.newInputStream(Paths.get(inputFilePath)));
 			Sheet sheet = workbook.getSheetAt(0);
 			orderList = new ArrayList<>();
 			for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
@@ -61,28 +52,19 @@ public class RWExcelOrder {
 					if (j == 0) {
 						String orderId = ce.getStringCellValue();
 						order.setOrderId(orderId);
-					}
-					if (j == 1) {
+					} else if (j == 1) {
 						order.setProdId(ce.getStringCellValue());
-					}
-					if (j == 2) {
+					} else if (j == 2) {
 						order.setUserID(ce.getStringCellValue());
-					}
-					if (j == 3) {
+					} else if (j == 3) {
 						order.setOrderDate(ce.getStringCellValue());
 					}
 				}
 				orderList.add(order);
 			}
+			workbook.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				// fileInputStream.close();
-				workbook.close();
-			} catch (IOException e) {
-				LOGGER.log(Level.INFO, e.getMessage());
-			}
 		}
 		return orderList;
 	}
@@ -93,52 +75,26 @@ public class RWExcelOrder {
 	 * @param order
 	 * @return
 	 */
-	public Order writeExcel(Order order) {
-		File file = new File("./src/main/resources/excel/order.xlsx");
-		XSSFWorkbook workbook = null;
-		XSSFSheet sheet = null;
-		int rownum = 0;
-		int cellnum = 0;
-		if (file.exists() == false) {
-			workbook = new XSSFWorkbook();
-			sheet = workbook.createSheet("order");
-		} else {
-			/*
-			 * try (InputStream is = new FileInputStream(file)) { workbook = new
-			 * XSSFWorkbook(is);
-			 */
-			try {
-				workbook = new XSSFWorkbook(Files.newInputStream(Paths.get("./src/main/resources/excel/order.xlsx")));
-				sheet = workbook.getSheetAt(0);
-				rownum = sheet.getLastRowNum() + 1;
-			} catch (FileNotFoundException e) {
-				System.err.println("File not found");
-			} catch (IOException e) {
-				System.err.println("Input/Output exception happened");
-			}
-		}
-
-		Row row = sheet.createRow(rownum++);
-
-		Cell cell = row.createCell(cellnum++);
-		cell.setCellValue(order.getOrderId());
-
-		Cell cell2 = row.createCell(cellnum++);
-		cell2.setCellValue(order.getUserID());
-
-		Cell cell3 = row.createCell(cellnum++);
-		cell3.setCellValue(order.getProdId());
-
-		Cell cell4 = row.createCell(cellnum++);
-		cell4.setCellValue(order.getOrderDate());
-
+	public Order writeExcel(Order order, String filePath) {
 		try {
-			/*
-			 * file = new File("./src/main/resources/excel/order.xlsx");
-			 * FileOutputStream out = new FileOutputStream(file);
-			 * workbook.write(out); out.close();
-			 */
-			workbook.write(Files.newOutputStream((Paths.get("./src/main/resources/excel/order.xlsx"))));
+			Workbook workbook = new XSSFWorkbook(Files.newInputStream(Paths.get(filePath)));
+			Sheet sheet = workbook.getSheetAt(0);
+			int rownum = sheet.getLastRowNum();
+			int cellnum = 0;
+			Row row = sheet.createRow(++rownum);
+			Cell cell = row.createCell(cellnum++);
+			cell.setCellValue(order.getOrderId());
+
+			Cell cell2 = row.createCell(cellnum++);
+			cell2.setCellValue(order.getUserID());
+
+			Cell cell3 = row.createCell(cellnum++);
+			cell3.setCellValue(order.getProdId());
+
+			Cell cell4 = row.createCell(cellnum++);
+			cell4.setCellValue(order.getOrderDate());
+
+			workbook.write(Files.newOutputStream(Paths.get(filePath)));
 			workbook.close();
 			return order;
 		} catch (Exception e) {
@@ -153,17 +109,11 @@ public class RWExcelOrder {
 	 * @param orderId
 	 * @return
 	 */
-	public String cancelOrder(String orderId) {
+	public String cancelOrder(String orderId, String filePath) {
 		int removeRowIndex = 0;
 		String cancelledOrderId = null;
 		try {
-			/*
-			 * FileInputStream excelFile = new FileInputStream(new
-			 * File("./src/main/resources/excel/order.xlsx")); Workbook workbook
-			 * = new XSSFWorkbook(excelFile);
-			 */
-			Workbook workbook = new XSSFWorkbook(
-					Files.newInputStream(Paths.get("./src/main/resources/excel/order.xlsx")));
+			Workbook workbook = new XSSFWorkbook(Files.newInputStream(Paths.get(filePath)));
 			Sheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> iterator = sheet.iterator();
 			while (iterator.hasNext()) {
@@ -182,15 +132,8 @@ public class RWExcelOrder {
 				}
 			}
 			removeOrder(sheet, removeRowIndex);
-			/*
-			 * File outFile = new File(filePath); OutputStream out = new
-			 * FileOutputStream(outFile); workbook.write(out); out.flush();
-			 * out.close();
-			 */
-			workbook.write(Files.newOutputStream((Paths.get("./src/main/resources/excel/order.xlsx"))));
+			workbook.write(Files.newOutputStream(Paths.get(filePath)));
 			workbook.close();
-		} catch (FileNotFoundException e) {
-			LOGGER.log(Level.INFO, e.getMessage());
 		} catch (IOException e) {
 			LOGGER.log(Level.INFO, e.getMessage());
 		}
@@ -222,8 +165,8 @@ public class RWExcelOrder {
 	 * @param orderId
 	 * @return
 	 */
-	public Order getOrderById(String orderId) {
-		List<Order> orders = readExcel();
+	public Order getOrderById(String orderId, String filePath) {
+		List<Order> orders = readExcel(filePath);
 		Order order = null;
 		for (Order o : orders) {
 			if (o.getOrderId().equalsIgnoreCase(orderId)) {
@@ -239,57 +182,29 @@ public class RWExcelOrder {
 	 * @param placeOrder
 	 * @return
 	 */
-	public String writeOrderExcel(Order placeOrder) {
-
-		int cellnum = 0;
-		File file = new File("./src/main/resources/excel/order.xlsx");
-		XSSFWorkbook workbook = null;
-		XSSFSheet sheet = null;
-		int rownum = 0;
-		if (file.exists() == false) {
-			workbook = new XSSFWorkbook();
-			LOGGER.log(Level.INFO, "coming inside if");
-			sheet = workbook.createSheet("User Order Details");
-		} else {
-			LOGGER.log(Level.INFO, "coming in else");
-			/*
-			 * try (InputStream is = new FileInputStream(file)) { workbook = new
-			 * XSSFWorkbook(is); sheet = workbook.getSheetAt(0);
-			 */
-			try {
-				workbook = new XSSFWorkbook(Files.newInputStream(Paths.get("./src/main/resources/excel/order.xlsx")));
-				sheet = workbook.getSheetAt(0);
-				rownum = sheet.getLastRowNum() + 1;
-			} catch (FileNotFoundException e) {
-				LOGGER.log(Level.WARNING, "File not found");
-			} catch (IOException e) {
-				LOGGER.log(Level.WARNING, "Input/Output exception happened");
-			}
-		}
-		LOGGER.log(Level.INFO, "coming inside else");
-		Row row = sheet.createRow(rownum++);
-		Cell cell = row.createCell(cellnum++);
-		cell.setCellValue(placeOrder.getOrderId());
-		Cell cell2 = row.createCell(cellnum++);
-		cell2.setCellValue(placeOrder.getProdId());
-		Cell cell3 = row.createCell(cellnum++);
-		cell3.setCellValue(placeOrder.getUserID());
-		Cell cell4 = row.createCell(cellnum++);
-		cell4.setCellValue(placeOrder.getOrderDate());
+	public String writeOrderExcel(Order placeOrder, String filePath) {
 		try {
-			/*
-			 * FileOutputStream out = new FileOutputStream(file);
-			 * workbook.write(out); out.close();
-			 */
-			workbook.write(Files.newOutputStream((Paths.get("./src/main/resources/excel/order.xlsx"))));
+			Workbook workbook = new XSSFWorkbook(Files.newInputStream(Paths.get(filePath)));
+			Sheet sheet = workbook.getSheetAt(0);
+			int rownum = sheet.getLastRowNum();
+			int cellnum = 0;
+			Row row = sheet.createRow(rownum++);
+			Cell cell = row.createCell(cellnum++);
+			cell.setCellValue(placeOrder.getOrderId());
+			Cell cell2 = row.createCell(cellnum++);
+			cell2.setCellValue(placeOrder.getProdId());
+			Cell cell3 = row.createCell(cellnum++);
+			cell3.setCellValue(placeOrder.getUserID());
+			Cell cell4 = row.createCell(cellnum++);
+			cell4.setCellValue(placeOrder.getOrderDate());
+			workbook.write(Files.newOutputStream((Paths.get(filePath))));
 			workbook.close();
 			return "User Order Placed Successfully!!!The user with ID => " + placeOrder.getUserID()
 					+ " has placed the Order with ID =>" + placeOrder.getOrderId() + " having the prodcut with ID => "
 					+ placeOrder.getProdId();
 		} catch (Exception e) {
 			LOGGER.log(Level.WARNING, "Internal Server Error");
-			return "Internal Server Error";
+			return "NoSuchFileException";
 		}
 	}
-
 }

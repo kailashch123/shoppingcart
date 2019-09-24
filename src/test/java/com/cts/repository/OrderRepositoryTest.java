@@ -29,7 +29,7 @@ public class OrderRepositoryTest extends AbstractTest {
 		order.setProdId("1");
 		order.setOrderDate("1");
 		order.setUserID("1");
-		when(rWExcelOrder.writeExcel(order)).thenReturn(order);
+		when(rWExcelOrder.writeExcel(order, "./src/main/resources/excel/order.xlsx")).thenReturn(order);
 		orderRepository.placeOrder(order);
 	}
 
@@ -37,7 +37,7 @@ public class OrderRepositoryTest extends AbstractTest {
 	public void testCancelOrder() {
 		Order order = new Order();
 		order.setOrderId("1");
-		when(rWExcelOrder.cancelOrder(order.getOrderId())).thenReturn("cancelled");
+		when(rWExcelOrder.cancelOrder(order.getOrderId(), "./src/main/resources/excel/order.xlsx")).thenReturn("cancelled");
 		String res = orderRepository.cancelOrder(order.getOrderId());
 		assertEquals(res, "cancelled");
 	}
@@ -57,7 +57,7 @@ public class OrderRepositoryTest extends AbstractTest {
 		List<Order> list = new ArrayList<Order>();
 		list.add(order);
 		list.add(order1);
-		when(rWExcelOrder.readExcel()).thenReturn(list);
+		when(rWExcelOrder.readExcel("./src/main/resources/excel/order.xlsx")).thenReturn(list);
 		List<Order> res = orderRepository.getAllOrders();
 		assertNotEquals(res, null);
 	}
@@ -66,7 +66,7 @@ public class OrderRepositoryTest extends AbstractTest {
 	public void testGetOrderById() {
 		Order order = new Order();
 		order.setOrderId("1");
-		when(rWExcelOrder.getOrderById(order.getOrderId())).thenReturn(order);
+		when(rWExcelOrder.getOrderById(order.getOrderId(), "./src/main/resources/excel/order.xlsx")).thenReturn(order);
 		Order res = orderRepository.getOrderById(order.getOrderId());
 		assertNotEquals(res, null);
 	}
@@ -78,7 +78,7 @@ public class OrderRepositoryTest extends AbstractTest {
 		order.setProdId("1");
 		order.setOrderDate("1");
 		order.setUserID("1");
-		when(rWExcelOrder.writeOrderExcel(order)).thenReturn("User Order Placed Successfully");
+		when(rWExcelOrder.writeOrderExcel(order, "./src/main/resources/excel/order.xlsx")).thenReturn("User Order Placed Successfully");
 		String res = orderRepository.save(order);
 		assertEquals(res, "User Order Placed Successfully");
 	}

@@ -31,7 +31,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
 	 */
 	@Override
 	public Order placeOrder(final Order order) {
-		return rWExcelOrder.writeExcel(order);
+		return rWExcelOrder.writeExcel(order, "./src/main/resources/excel/order.xlsx");
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
 	 */
 	@Override
 	public String cancelOrder(final String orderId) {
-		return rWExcelOrder.cancelOrder(orderId);
+		return rWExcelOrder.cancelOrder(orderId, "./src/main/resources/excel/order.xlsx");
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
 	 */
 	@Override
 	public List<Order> getAllOrders() {
-		return rWExcelOrder.readExcel();
+		return rWExcelOrder.readExcel("./src/main/resources/excel/order.xlsx");
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
 	 */
 	@Override
 	public Order getOrderById(final String orderId) {
-		return rWExcelOrder.getOrderById(orderId);
+		return rWExcelOrder.getOrderById(orderId, "./src/main/resources/excel/order.xlsx");
 	}
 
 	/**
@@ -74,6 +74,6 @@ public class OrderRepositoryImpl implements IOrderRepository {
 	 */
 	@Override
 	public String save(final Order placeOrder) {
-		return rWExcelOrder.writeOrderExcel(placeOrder);
+		return rWExcelOrder.writeOrderExcel(placeOrder, "./src/main/resources/excel/order.xlsx");
 	}
 }

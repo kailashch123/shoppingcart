@@ -18,6 +18,8 @@ import com.cts.util.ProductExcelFile;
 import com.cts.util.RWExcelProduct;
 
 public class ProductDetailsRepoTest extends AbstractTest {
+	
+	private String filePath = "./src/main/resources/excel/product.xlsx";
 
 	@InjectMocks
 	ProductDetailsRepoImpl productDetailsRepository;
@@ -35,16 +37,18 @@ public class ProductDetailsRepoTest extends AbstractTest {
 	}
 	@Test
 	public void testProductAdd() {
-		String fileName = "./src/main/resources/excel/product.xlsx";
+		when(productExcelFile.addItemInExcel(filePath, getDummyProduct())).thenReturn("Added");
+		String res = productDetailsRepository.addItem(product, filePath);
+		assertEquals(res, "Added");
+	}
+
+	private Product getDummyProduct() {
 		Product product = new Product();
 		product.setProdId("102");
 		product.setProdName("nokia");
 		product.setPrice("999");
-		when(productExcelFile.addItemInExcel(fileName, product)).thenReturn("Added");
-		String res = productDetailsRepository.addItem(product);
-		assertEquals(res, "Added");
+		return product;
 	}
-
 	@Test
 	public void testProductRemove() {
 		String fileName = "./src/main/resources/excel/product.xlsx";

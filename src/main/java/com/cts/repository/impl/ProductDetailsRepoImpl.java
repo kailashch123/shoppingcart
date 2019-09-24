@@ -25,6 +25,8 @@ public class ProductDetailsRepoImpl implements IProductDetailsRepository {
 
 	@Autowired
 	private RWExcelProduct rWExcelProduct;
+	
+	private String filePath = "./src/main/resources/excel/product.xlsx";
 
 	/**
 	 * It will add a product details
@@ -33,8 +35,8 @@ public class ProductDetailsRepoImpl implements IProductDetailsRepository {
 	 * @return
 	 */
 	@Override
-	public String addItem(final Product pro) {
-		return productExcelFile.addItemInExcel("./src/main/resources/excel/product.xlsx", pro);
+	public String addItem(final Product prouct) {
+		return productExcelFile.addItemInExcel(filePath, prouct);
 	}
 
 	/**
@@ -56,7 +58,7 @@ public class ProductDetailsRepoImpl implements IProductDetailsRepository {
 	 */
 	@Override
 	public List<Product> getAllProducts() {
-		return rWExcelProduct.getAllProducts();
+		return rWExcelProduct.getAllProducts(filePath);
 	}
 
 	/**
@@ -67,7 +69,7 @@ public class ProductDetailsRepoImpl implements IProductDetailsRepository {
 	 */
 	@Override
 	public Product getProductById(final String prodId) {
-		return rWExcelProduct.getProductById(prodId);
+		return rWExcelProduct.getProductById(prodId, filePath);
 	}
 
 }

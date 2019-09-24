@@ -64,17 +64,15 @@ public class RWExcelFileAuth {
 						if (rowIndex > 0) {
 							if (columnIndex == 0) {
 								userExcel.setUserId(currentCell.getStringCellValue());
-							}
-							if (columnIndex == 1) {
+							} else if (columnIndex == 1) {
 								userExcel.setFirstName(currentCell.getStringCellValue());
-							}
-							if (columnIndex == 2) {
+							} else if (columnIndex == 2) {
 								userExcel.setLastName(currentCell.getStringCellValue());
-							}
-							if (columnIndex == 3) {
+							} else if (columnIndex == 3) {
 								userExcel.setPassword(currentCell.getStringCellValue());
 							}
-							if (user.getUserId().equals(userExcel.getUserId()) && user.getPassword().equals(userExcel.getPassword())) {
+							if (user.getUserId().equals(userExcel.getUserId())
+									&& user.getPassword().equals(userExcel.getPassword())) {
 								response = "User Looged in sucessfully";
 								break;
 							}

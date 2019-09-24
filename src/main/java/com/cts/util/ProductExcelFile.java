@@ -37,16 +37,6 @@ public class ProductExcelFile {
 	File file;
 
 	/**
-	 * This constructor is used to initialize File.
-	 * 
-	 * 
-	 */
-	public ProductExcelFile() {
-		cellnum = 0;
-		file = new File("./src/main/resources/excel/product.xlsx");
-	}
-
-	/**
 	 * This method is used for adding the product details into excel.
 	 * 
 	 * @param fileName
@@ -57,10 +47,6 @@ public class ProductExcelFile {
 	public String addItemInExcel(String fileName, Product pro) {
 		String response = null;
 		try {
-			// FileInputStream fileInput = new FileInputStream(new
-			// File(fileName));
-
-			// Files.newInputStream(Paths.get(fileName));
 			Workbook workbook = new XSSFWorkbook(Files.newInputStream(Paths.get(fileName)));
 			Sheet sheet = workbook.getSheetAt(0);
 			rownum = sheet.getLastRowNum();
@@ -94,8 +80,6 @@ public class ProductExcelFile {
 
 	/**
 	 * This method is used for deleting a product item from excel.
-	 * 
-	 * 
 	 * @param inputFilePath
 	 * @param id
 	 * @return
