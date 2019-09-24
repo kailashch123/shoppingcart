@@ -12,12 +12,13 @@ import java.util.List;
 
 import com.cts.controller.AbstractTest;
 import com.cts.model.Order;
+import com.cts.repository.impl.OrderRepositoryImpl;
 import com.cts.util.RWExcelOrder;
 
 public class OrderRepositoryTest extends AbstractTest {
 
 	@InjectMocks
-	OrderRepository orderRepository;
+	OrderRepositoryImpl orderRepository;
 	@Mock
 	RWExcelOrder rWExcelOrder;
 

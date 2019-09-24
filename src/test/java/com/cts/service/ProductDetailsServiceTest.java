@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cts.model.Order;
 import com.cts.model.Product;
-import com.cts.repository.ProductDetailssRepo;
+import com.cts.repository.impl.ProductDetailssRepo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductDetailsServiceTest {

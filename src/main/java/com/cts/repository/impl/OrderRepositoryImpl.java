@@ -6,7 +6,7 @@
  *
  */
 
-package com.cts.repository;
+package com.cts.repository.impl;
 
 import java.util.List;
 
@@ -14,23 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cts.model.Order;
+import com.cts.repository.iface.IOrderRepository;
 import com.cts.util.RWExcelOrder;
 
 @Repository("OrderRepository")
-public class OrderRepository {
+public class OrderRepositoryImpl implements IOrderRepository {
 
 	@Autowired
 	private RWExcelOrder rWExcelOrder;
-
-	/**
-	 * OrderRepository() is used for initializing the rWExcelOrder variable.
-	 * 
-	 * @param rWExcelOrder
-	 */
-	public OrderRepository(RWExcelOrder rWExcelOrder) {
-		super();
-		this.rWExcelOrder = rWExcelOrder;
-	}
 
 	/**
 	 * It will write the order into excel
@@ -38,6 +29,7 @@ public class OrderRepository {
 	 * @param order
 	 * @return
 	 */
+	@Override
 	public Order placeOrder(final Order order) {
 		return rWExcelOrder.writeExcel(order);
 	}
@@ -48,6 +40,7 @@ public class OrderRepository {
 	 * @param orderId
 	 * @return String
 	 */
+	@Override
 	public String cancelOrder(final String orderId) {
 		return rWExcelOrder.cancelOrder(orderId);
 	}
@@ -57,6 +50,7 @@ public class OrderRepository {
 	 * 
 	 * @return List
 	 */
+	@Override
 	public List<Order> getAllOrders() {
 		return rWExcelOrder.readExcel();
 	}
@@ -67,6 +61,7 @@ public class OrderRepository {
 	 * @param orderId
 	 * @return Order
 	 */
+	@Override
 	public Order getOrderById(final String orderId) {
 		return rWExcelOrder.getOrderById(orderId);
 	}
@@ -77,6 +72,7 @@ public class OrderRepository {
 	 * @param placeOrder
 	 * @return String
 	 */
+	@Override
 	public String save(final Order placeOrder) {
 		return rWExcelOrder.writeOrderExcel(placeOrder);
 	}

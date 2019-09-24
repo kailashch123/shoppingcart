@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cts.model.User;
+import com.cts.repository.impl.AuthRepository;
 import com.cts.util.RWExcelFileAuth;
 
 @RunWith(SpringRunner.class)

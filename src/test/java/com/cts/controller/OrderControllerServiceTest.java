@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.client.RestTemplate;
 
 import com.cts.model.Order;
-import com.cts.repository.ProductDetailssRepo;
-import com.cts.service.OrderService;
+import com.cts.repository.impl.ProductDetailssRepo;
+import com.cts.service.OrderServiceImpl;
 import com.cts.util.RWExcelOrder;
 
 public class OrderControllerServiceTest extends AbstractTest {
@@ -29,7 +29,7 @@ public class OrderControllerServiceTest extends AbstractTest {
 	private OrderController orderController;
 	
 	@Mock
-	private OrderService orderService;
+	private OrderServiceImpl orderService;
 
 	@Mock
 	private RWExcelOrder orderExcelFile;

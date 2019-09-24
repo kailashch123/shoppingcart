@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.model.Product;
-import com.cts.repository.ProductDetailssRepo;
+import com.cts.repository.impl.ProductDetailssRepo;
 
 @Service("productDetailsService")
 public class ProductDetailsService {

@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cts.model.User;
-import com.cts.repository.AuthRepository;
+import com.cts.repository.impl.AuthRepository;
 import com.cts.service.AuthService;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;

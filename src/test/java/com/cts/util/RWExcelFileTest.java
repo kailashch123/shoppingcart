@@ -2,9 +2,6 @@ package com.cts.util;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -12,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.cts.model.Product;
 import com.cts.model.User;
 
 @RunWith(SpringRunner.class)
@@ -37,7 +33,8 @@ public class RWExcelFileTest {
 		user.setLastName("RaM");
 		user.setPassword("123yyd");
 		user.setUserId("testUser");
-		assertEquals("User Registered Successfully", rWExcelFile.writeExcel(user));
+		String writeExcelResponse = rWExcelFile.writeExcel(user);
+		assertEquals("User Registered Successfully", writeExcelResponse);
 	}
 
 }

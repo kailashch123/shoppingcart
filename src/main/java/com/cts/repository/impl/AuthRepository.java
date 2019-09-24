@@ -4,7 +4,7 @@
  * @author 764432
  *
  */
-package com.cts.repository;
+package com.cts.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

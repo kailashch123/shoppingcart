@@ -19,25 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.model.Order;
-import com.cts.service.OrderService;
+import com.cts.service.IOrderService;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
 	@Autowired
-	private OrderService orderService;
-
-	/**
-	 * This constructor is used for initializing OrderService variable.
-	 * 
-	 * @param orderService
-	 */
-
-	public OrderController(final OrderService orderService) {
-		super();
-		this.orderService = orderService;
-	}
+	private IOrderService orderService;
 
 	/**
 	 * This method is checking the order placed successfully or not.

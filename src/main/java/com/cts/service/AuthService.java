@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.model.User;
-import com.cts.repository.AuthRepository;
+import com.cts.repository.impl.AuthRepository;
 
 @Service
 public class AuthService {

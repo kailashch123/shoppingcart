@@ -28,7 +28,8 @@ public class RWExcelOrderTest {
 		order1.setOrderId("123");
 		order1.setProdId("G4234");
 		order1.setUserID("test");
-		assertEquals("123", rWExcelOrder.writeExcel(order1).getOrderId());
+		String writeExcelResponse = rWExcelOrder.writeExcel(order1).getOrderId();
+		assertEquals("123", writeExcelResponse);
 	}
 	
 	@Test
@@ -37,7 +38,8 @@ public class RWExcelOrderTest {
 		order1.setOrderId("123");
 		order1.setProdId("G4234");
 		order1.setUserID("test");
-		assertEquals("123", rWExcelOrder.cancelOrder(order1.getOrderId()));
+		String cancelOrderResponse = rWExcelOrder.cancelOrder(order1.getOrderId());
+		assertEquals("123", cancelOrderResponse);
 	}
 	
 	@Test
@@ -47,7 +49,8 @@ public class RWExcelOrderTest {
 		order1.setProdId("G4234");
 		order1.setUserID("test");
 		order1.setOrderDate("2019-09-12T12:01:20.457Z");
-		assertNotEquals(order1, rWExcelOrder.getOrderById(order1.getOrderId()));
+		Order orderById = rWExcelOrder.getOrderById(order1.getOrderId());
+		assertNotEquals(order1, orderById);
 	}
 	
 	@Test
@@ -57,13 +60,8 @@ public class RWExcelOrderTest {
 		order1.setProdId("G4234");
 		order1.setUserID("test");
 		order1.setOrderDate("2019-09-12T12:01:20.457Z");
-		assertNotEquals("User Order Placed Successfully!!! ", rWExcelOrder.writeOrderExcel(order1));
+		String response = rWExcelOrder.writeOrderExcel(order1);
+		assertNotEquals("User Order Placed Successfully!!! ", response);
 	}
-	
-	@Test
-	public void writeOrderExcelFileNotFoundExceptionTest() {
-	}
-	
-	
 
 }

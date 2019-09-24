@@ -14,17 +14,17 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.cts.model.Order;
-import com.cts.repository.OrderRepository;
+import com.cts.repository.impl.OrderRepositoryImpl;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTest {
 	
 	@InjectMocks
-	OrderService orderService;
+	OrderServiceImpl orderService;
 	
 	@Mock
-	OrderRepository orderRepository;
+	OrderRepositoryImpl orderRepository;
 	
 	@Test
 	public void placeOrderTest(){

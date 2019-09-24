@@ -1,8 +1,8 @@
 package com.cts.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -26,7 +26,8 @@ public class RWExcelProductTest {
 		pro.setProdName("Mobile");
 		rWExcelProduct.addItemInExcel(pro);
 		String expected = "Item added Successfully";
-		assertEquals(expected, rWExcelProduct.addItemInExcel(pro));
+		String actual = rWExcelProduct.addItemInExcel(pro);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -38,7 +39,8 @@ public class RWExcelProductTest {
 	
 	@Test
 	public void readExcelTest() {
-		assertNotNull(rWExcelProduct.readExcel());
+		List<Product> actual = rWExcelProduct.readExcel();
+		assertNotNull(actual);
 	}
 	
 	@Test

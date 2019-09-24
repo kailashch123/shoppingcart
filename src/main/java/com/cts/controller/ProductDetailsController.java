@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.model.Order;
 import com.cts.model.Product;
-import com.cts.service.OrderService;
+import com.cts.service.IOrderService;
 import com.cts.service.ProductDetailsService;
 
 @RestController
@@ -34,19 +34,7 @@ public class ProductDetailsController {
 	private ProductDetailsService productDetailsService;
 
 	@Autowired
-	private OrderService orderService;
-
-	/**
-	 * This constructor is used to initialize ProductDetailsService.
-	 * 
-	 * @param productDetailsService
-	 * @param orderService
-	 */
-	public ProductDetailsController(ProductDetailsService productDetailsService, OrderService orderService) {
-		super();
-		this.productDetailsService = productDetailsService;
-		this.orderService = orderService;
-	}
+	private IOrderService orderService;
 
 	/**
 	 * This method is used for adding the item into excel.
