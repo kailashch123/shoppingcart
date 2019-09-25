@@ -37,27 +37,20 @@ public class ProductDetailsRepoTest extends AbstractTest {
 	}
 	@Test
 	public void testProductAdd() {
-		when(productExcelFile.addItemInExcel(filePath, getDummyProduct())).thenReturn("Added");
+		Product product = getDummyProduct();
+		when(productExcelFile.addItemInExcel(filePath, product)).thenReturn("Added");
 		String res = productDetailsRepository.addItem(product, filePath);
 		assertEquals(res, "Added");
 	}
 
-	private Product getDummyProduct() {
-		Product product = new Product();
-		product.setProdId("102");
-		product.setProdName("nokia");
-		product.setPrice("999");
-		return product;
-	}
 	@Test
 	public void testProductRemove() {
-		String fileName = "./src/main/resources/excel/product.xlsx";
 		Product product = new Product();
 		product.setProdId("102");
 		product.setProdName("nokia");
 		product.setPrice("999");
-		when(productExcelFile.removeItemFromExcel(fileName,product.getProdId() )).thenReturn("Removed");
-		String res = productDetailsRepository.removeItem(product.getProdId());
+		when(productExcelFile.removeItemFromExcel(filePath,product.getProdId() )).thenReturn("Removed");
+		String res = productDetailsRepository.removeItem(product.getProdId(), filePath);
 		assertEquals(res, "Removed");
 	}
 	
@@ -67,8 +60,8 @@ public class ProductDetailsRepoTest extends AbstractTest {
 		product.setProdId("102");
 		product.setProdName("nokia");
 		product.setPrice("999");
-		when(rwExcelProduct.getProductById(product.getProdId() )).thenReturn(product);
-		Product responseProduct = productDetailsRepository.getProductById(product.getProdId());
+		when(rwExcelProduct.getProductById(product.getProdId(), filePath)).thenReturn(product);
+		Product responseProduct = productDetailsRepository.getProductById(product.getProdId(), filePath);
 		assertEquals(product.getProdId(), responseProduct.getProdId());
 	}
 	
@@ -88,8 +81,16 @@ public class ProductDetailsRepoTest extends AbstractTest {
 		pList.add(product1);
 		pList.add(product2);
 		
-		when(rwExcelProduct.getAllProducts()).thenReturn(pList);
-		List<Product> responsePlist = productDetailsRepository.getAllProducts();
+		when(rwExcelProduct.getAllProducts(filePath)).thenReturn(pList);
+		List<Product> responsePlist = productDetailsRepository.getAllProducts(filePath);
 		assertEquals(2, responsePlist.size());
+	}
+	
+	private Product getDummyProduct() {
+		Product product = new Product();
+		product.setProdId("102");
+		product.setProdName("nokia");
+		product.setPrice("999");
+		return product;
 	}
 }

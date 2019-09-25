@@ -17,8 +17,8 @@ public class RWExcelFileTest {
 
 	@Test
 	public void readExcelTest() {
-		String filepath = "./src/main/resources/excel/login.xlsx";
-		rwExcelFile.readExcel(filepath);
+		String filePath = "./src/main/resources/excel/login.xlsx";
+		rwExcelFile.readExcel(filePath);
 	}
 
 	@Test

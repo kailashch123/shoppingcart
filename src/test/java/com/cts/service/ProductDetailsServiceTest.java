@@ -25,7 +25,7 @@ public class ProductDetailsServiceTest {
 	
 	@Mock
 	ProductDetailsRepoImpl productDetailsRepository;
-	
+	private String filePath = "./src/main/resources/excel/product.xlsx";
 
 	@Test
 	public void addItemTest(){
@@ -33,14 +33,14 @@ public class ProductDetailsServiceTest {
 		pro.setPrice("234.56");
 		pro.setProdId("B345");
 		pro.setProdName("Bottle");
-		when(productDetailsRepository.addItem(pro)).thenReturn("Item Added Successfully");
-		assertEquals("Item Added Successfully", productDetailsService.addItem(pro));
+		when(productDetailsRepository.addItem(pro, filePath)).thenReturn("Item Added Successfully");
+		assertEquals("Item Added Successfully", productDetailsService.addItem(pro, filePath));
 	}
 	
 	@Test
 	public void removeItemTest(){
-		when(productDetailsRepository.removeItem("B345")).thenReturn("Item deleted Successfully");
-		assertEquals("Item deleted Successfully", productDetailsService.removeItem("B345"));
+		when(productDetailsRepository.removeItem("B345",filePath)).thenReturn("Item deleted Successfully");
+		assertEquals("Item deleted Successfully", productDetailsService.removeItem("B345", filePath));
 	}
 	
 	@Test
@@ -52,18 +52,18 @@ public class ProductDetailsServiceTest {
 		p1.setProdId("Y23423");
 		products.add(p1);
 		products.add(p);
-		when(productDetailsRepository.getAllProducts()).thenReturn(products);
-		assertNotNull(productDetailsService.getAllProducts());
+		when(productDetailsRepository.getAllProducts(filePath)).thenReturn(products);
+		assertNotNull(productDetailsService.getAllProducts(filePath));
 	}
 	
 	@Test
 	public void getProductByIdTest(){
 		Product p = new Product();
 		p.setProdId("G23423");
-		when(productDetailsRepository.getProductById("G23423")).thenReturn(p);
-		assertEquals(p.getProdId(), productDetailsService.getProductById("G23423").getProdId());
-		assertEquals(p.getPrice() , productDetailsService.getProductById("G23423").getPrice());
-		assertEquals(p.getProdName(), productDetailsService.getProductById("G23423").getProdName());
+		when(productDetailsRepository.getProductById("G23423", filePath)).thenReturn(p);
+		assertEquals(p.getProdId(), productDetailsService.getProductById("G23423", filePath).getProdId());
+		assertEquals(p.getPrice() , productDetailsService.getProductById("G23423", filePath).getPrice());
+		assertEquals(p.getProdName(), productDetailsService.getProductById("G23423", filePath).getProdName());
 		
 	}
 }

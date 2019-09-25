@@ -70,9 +70,9 @@ public class ProductExcelFile {
 			out.close();
 			response = "Product Added Successfully,Product Id:  " + pro.getProdId();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOGGER.log(Level.INFO, e.getMessage());
-			response = "Internal Server Error";
+			response = "NoSuchFileException";
 
 		}
 		return response;
@@ -89,11 +89,6 @@ public class ProductExcelFile {
 		String removedProdId = null;
 		int removedRowIndex = 0;
 		try {
-
-			// FileInputStream fileInputStream = new FileInputStream(new
-			// File(inputFilePath));
-
-			// Workbook workbook = new XSSFWorkbook(fileInputStream);
 			Workbook workbook = new XSSFWorkbook(Files.newInputStream(Paths.get(inputFilePath)));
 			Sheet dataSheet = workbook.getSheetAt(0);
 			Iterator<Row> iterator = dataSheet.iterator();
@@ -119,18 +114,12 @@ public class ProductExcelFile {
 			}
 			removeRow(dataSheet, removedRowIndex);
 			File file = new File(inputFilePath);
-			// OutputStream outputStream = new FileOutputStream(file);
 			workbook.write(Files.newOutputStream((Paths.get(inputFilePath))));
-			// workbook.write(outputStream);
-
-			// outputStream.flush();
-			// outputStream.close();
 			workbook.close();
 
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			removedProdId = "NoSuchFileException";
 		}
 		return removedProdId;
 	}

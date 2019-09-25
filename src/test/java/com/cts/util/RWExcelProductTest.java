@@ -17,44 +17,61 @@ public class RWExcelProductTest {
 	
 	@InjectMocks
 	RWExcelProduct rWExcelProduct;
+	private String filePath = "./src/main/resources/excel/product.xlsx";
 	
 	@Test
 	public void addItemInExcelTest() {
-		Product pro = new Product();
-		pro.setPrice("345.66");
-		pro.setProdId("23234");
-		pro.setProdName("Mobile");
-		rWExcelProduct.addItemInExcel(pro);
+		Product product = getTestProduct();
+		rWExcelProduct.addItemInExcel(product, filePath);
 		String expected = "Item added Successfully";
-		String actual = rWExcelProduct.addItemInExcel(pro);
+		String actual = rWExcelProduct.addItemInExcel(product, filePath);
 		assertEquals(expected, actual);
 	}
 	
 	@Test
 	public void removeItemFromExcelTest() {
-		String filePath = "./src/main/resources/excel/product.xlsx";
-		int id = 12;
-		rWExcelProduct.removeItemFromExcel(filePath, id);
+		Product product = getTestProduct();
+		rWExcelProduct.addItemInExcel(product, filePath);
+		String expected = "Item added Successfully";
+		String actual = rWExcelProduct.addItemInExcel(product, filePath);
+		assertEquals(expected, actual);
+		int prodId = Integer.valueOf(product.getProdId());
+		rWExcelProduct.removeItemFromExcel(filePath, prodId);
 	}
 	
 	@Test
 	public void readExcelTest() {
-		List<Product> actual = rWExcelProduct.readExcel();
+		List<Product> actual = rWExcelProduct.readExcel(filePath);
 		assertNotNull(actual);
 	}
 	
 	@Test
 	public void getAllProductsTest() {
-		assertNotNull(rWExcelProduct.getAllProducts().size());
+		assertNotNull(rWExcelProduct.getAllProducts(filePath).size());
 	}
 	
 	@Test
 	public void getProductByIdTest() {
-		Product pro = new Product();
-		pro.setPrice("345.66");
-		pro.setProdId("23234");
-		pro.setProdName("Mobile");
-		assertEquals("Mobile", rWExcelProduct.getProductById("23234").getProdName());
+		Product p = getTestProduct();
+		rWExcelProduct.addItemInExcel(p, filePath);
+		String expected = "Item added Successfully";
+		String actual = rWExcelProduct.addItemInExcel(getTestProduct(), filePath);
+		assertEquals(expected, actual);
+		
+		Product product = rWExcelProduct.getProductById(p.getProdId(), filePath);
+		assertEquals("Mobile", product.getProdName());
+		
+		String filePath = "./src/main/resources/excel/product.xlsx";
+		int id = Integer.valueOf(p.getProdId());
+		rWExcelProduct.removeItemFromExcel(filePath, id);
+	}
+	
+	private Product getTestProduct() {
+		Product product = new Product();
+		product.setPrice("345.66");
+		product.setProdId("23234");
+		product.setProdName("Mobile");
+		return product;
 	}
 
 }

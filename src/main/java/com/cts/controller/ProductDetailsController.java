@@ -35,6 +35,7 @@ public class ProductDetailsController {
 
 	@Autowired
 	private IOrderService orderService;
+	private String filePath = "./src/main/resources/excel/product.xlsx";
 
 	/**
 	 * This method is used for adding the item into excel.
@@ -45,7 +46,7 @@ public class ProductDetailsController {
 
 	@PostMapping
 	public ResponseEntity<String> addItem(@RequestBody Product product) {
-		String addItemResponse = productDetailsService.addItem(product);
+		String addItemResponse = productDetailsService.addItem(product, filePath);
 		if(addItemResponse != null) {
 			return new ResponseEntity(addItemResponse, HttpStatus.OK);
 		} else {
@@ -61,7 +62,7 @@ public class ProductDetailsController {
 	 */
 	@DeleteMapping(path = "/{prodId}")
 	public ResponseEntity<String> removeItem(@PathVariable("prodId") final String prodId) {
-		String proId = productDetailsService.removeItem(prodId);
+		String proId = productDetailsService.removeItem(prodId, filePath);
 		if (proId == null) {
 			return new ResponseEntity("Product not found in the system", HttpStatus.NOT_FOUND);
 		} else {
@@ -76,7 +77,7 @@ public class ProductDetailsController {
 	 */
 	@GetMapping
 	public ResponseEntity<List<Product>> getAllProducts() {
-		List<Product> products = productDetailsService.getAllProducts();
+		List<Product> products = productDetailsService.getAllProducts(filePath);
 		return new ResponseEntity(products, HttpStatus.OK);
 	}
 
@@ -88,7 +89,7 @@ public class ProductDetailsController {
 	 */
 	@GetMapping("/{prodId}")
 	public ResponseEntity<Product> getProductById(@PathVariable("prodId") final String prodId) {
-		Product product = productDetailsService.getProductById(prodId);
+		Product product = productDetailsService.getProductById(prodId, filePath);
 		if (product == null) {
 			return new ResponseEntity("Product not found", HttpStatus.NOT_FOUND);
 		} else {

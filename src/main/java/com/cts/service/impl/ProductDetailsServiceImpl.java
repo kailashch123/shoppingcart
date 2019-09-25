@@ -29,8 +29,8 @@ public class ProductDetailsServiceImpl implements IProductDetailsService {
 	 */
 
 	@Override
-	public String addItem(Product pro) {
-		return productDetailsRepository.addItem(pro);
+	public String addItem(Product pro, String filePath) {
+		return productDetailsRepository.addItem(pro, filePath);
 	}
 
 	/**
@@ -40,8 +40,8 @@ public class ProductDetailsServiceImpl implements IProductDetailsService {
 	 * @return
 	 */
 	@Override
-	public String removeItem(String id) {
-		return productDetailsRepository.removeItem(id);
+	public String removeItem(String id, String filePath) {
+		return productDetailsRepository.removeItem(id, filePath);
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class ProductDetailsServiceImpl implements IProductDetailsService {
 	 * @return
 	 */
 	@Override
-	public List<Product> getAllProducts() {
-		return productDetailsRepository.getAllProducts();
+	public List<Product> getAllProducts(String filePath) {
+		return productDetailsRepository.getAllProducts(filePath);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class ProductDetailsServiceImpl implements IProductDetailsService {
 	 * @return
 	 */
 	@Override
-	public Product getProductById(String productId) {
-		return productDetailsRepository.getProductById(productId);
+	public Product getProductById(String productId, String filePath) {
+		return productDetailsRepository.getProductById(productId, filePath);
 	}
 }

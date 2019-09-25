@@ -6,12 +6,12 @@ import com.cts.model.Product;
 
 public interface IProductDetailsService {
 
-	String addItem(Product pro);
+	String addItem(Product pro, String filePath);
 
-	String removeItem(String id);
+	String removeItem(String id, String filePath);
 
-	List<Product> getAllProducts();
+	List<Product> getAllProducts(String filePath);
 
-	Product getProductById(String productId);
+	Product getProductById(String productId, String filePath);
 
 }

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.cts.model.Product;
+import com.cts.model.User;
 import com.cts.service.impl.AuthServiceImpl;
 import com.cts.service.impl.ProductDetailsServiceImpl;
 
@@ -31,19 +32,24 @@ public class BuyProductControllerTest {
 
 	@MockBean
 	private ProductDetailsServiceImpl productDetailsService;
-
+	private String filePath = "./src/main/resources/excel/product.xlsx";
+	
 	@Test
 	public void loginTest() throws Exception {
 		String exampleCourseJson = "{\"password\":\"password\",\"userId\":\"user101\"}";
+		User user = new User();
+		user.setUserId("user101");
+		user.setPassword("password");
 
-		Mockito.when(authService.login(Mockito.anyObject())).thenReturn("User Looged in sucessfully");
-		Mockito.when(productDetailsService.addItem(Mockito.anyObject()))
-				.thenReturn("Product Added Successfully,Product Id:  101");
+		Mockito.when(authService.login(user)).thenReturn("User Looged in sucessfully");
+		
 		Product product = new Product();
 		product.setProdId("101");
 		product.setProdName("prodName");
 		product.setPrice("999");
-		Mockito.when(productDetailsService.getProductById(Mockito.anyObject())).thenReturn(product);
+		Mockito.when(productDetailsService.addItem(product, filePath)).thenReturn("Product Added Successfully,Product Id:  101");
+		
+		Mockito.when(productDetailsService.getProductById(product.getProdId(), filePath)).thenReturn(product);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/placeorder").accept(MediaType.APPLICATION_JSON)
 				.content(exampleCourseJson).contentType(MediaType.APPLICATION_JSON);

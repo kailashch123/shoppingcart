@@ -1,5 +1,6 @@
 package com.cts.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -25,15 +26,15 @@ public class ProductExcelFileTest {
 		pro.setProdName("CarBox");
 		String addItemResponse = productExcelFile.addItemInExcel(fileName, pro);
 		assertNotNull(addItemResponse);
-		/*
-		 * PowerMockito.mockStatic(Files.newInputStream.class);
-		 * PowerMockito.mock(Files.newInputStream(Mockito.any())).thenThrow(IOException.
-		 * class); boolean excOccured =false; String a; try { a =
-		 * productExcelFile.addItemInExcel(fileName, pro); }catch (IOException ioe) {
-		 * excOccured =true; } Assert.assertTrue(excOccured); assertNotNull(a);
-		 * Assert.assertEquals("", a);
-		 */
-
+	}
+	
+	@Test
+	public void addItemInExcelFailureTest() {
+		String fileName = "./src/main/resources/excel/nofile.xlsx";
+		Product pro = new Product();
+		String addItemResponse = productExcelFile.addItemInExcel(fileName, pro);
+		String expected = "NoSuchFileException";
+		assertEquals(expected, addItemResponse);
 	}
 
 	@Test
@@ -45,6 +46,14 @@ public class ProductExcelFileTest {
 		pro.setProdName("CarBox");
 		String removeItemResponse = productExcelFile.removeItemFromExcel(fileName, "12356");
 		assertNull(removeItemResponse);
+	}
+	
+	@Test
+	public void removeItemFromExcelFailureTest() {
+		String fileName = "./src/main/resources/excel/nofile.xlsx";
+		String removeItemResponse = productExcelFile.removeItemFromExcel(fileName, "12356");
+		String expected = "NoSuchFileException";
+		assertEquals(expected, removeItemResponse);
 	}
 
 }

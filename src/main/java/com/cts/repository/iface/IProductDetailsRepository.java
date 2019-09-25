@@ -6,11 +6,11 @@ import com.cts.model.Product;
 
 public interface IProductDetailsRepository {
 
-	String addItem(final Product pro);
+	String addItem(final Product pro, String filePath);
 
-	String removeItem(String prodId);
+	String removeItem(String prodId, String filePath);
 
-	List<Product> getAllProducts();
+	List<Product> getAllProducts(String filePath);
 
-	Product getProductById(String prodId);
+	Product getProductById(String prodId, String filePath);
 }
