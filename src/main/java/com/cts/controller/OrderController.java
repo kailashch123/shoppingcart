@@ -37,6 +37,7 @@ public class OrderController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping
 	public ResponseEntity<Object> placeOrder(@RequestBody final Order order) {
+		System.out.println("git");
 		Order savedOrder = orderService.placeOrder(order);
 		if (savedOrder == null) {
 			return new ResponseEntity("Unable to place order", HttpStatus.INTERNAL_SERVER_ERROR);
